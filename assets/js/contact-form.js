@@ -2,46 +2,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm")
   const formStatus = document.getElementById("formStatus")
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault()
 
-    const name = document.getElementById("name").value
-    const email = document.getElementById("email").value
-    const message = document.getElementById("message").value
+    const formData = new FormData(form)
 
-    if (!name || !email || !message) {
-      displayStatus("Please fill in all fields.", "error")
-      return
-    }
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      })
 
-    // Use FormSubmit.co for form submission
-    fetch("https://formsubmit.co/mubashirahmed421@gmail.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        message: message,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+      if (response.ok) {
         displayStatus("Message sent successfully!", "success")
         form.reset()
-      })
-      .catch((error) => {
-        displayStatus("An error occurred. Please try again later.", "error")
-        console.error("Error:", error)
-      })
+      } else {
+        throw new Error("Network response was not ok")
+      }
+    } catch (error) {
+      displayStatus("An error occurred. Please try again later.", "error")
+      console.error("Error:", error)
+    }
   })
 
   function displayStatus(message, type) {
     formStatus.textContent = message
-    formStatus.className = type === "success" ? "text-green-600" : "text-red-600"
+    formStatus.style.color = type === "success" ? "#4CAF50" : "#f44336"
     formStatus.style.display = "block"
+    formStatus.style.padding = "10px"
+    formStatus.style.marginTop = "10px"
+    formStatus.style.borderRadius = "4px"
+    formStatus.style.backgroundColor = type === "success" ? "#E8F5E9" : "#FFEBEE"
 
     // Hide the status message after 5 seconds
     setTimeout(() => {
