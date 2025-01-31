@@ -6,9 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault()
 
     const formData = new FormData(form)
+    formData.append("_captcha", "false")
+    formData.append("_template", "table")
 
     try {
-      const response = await fetch(form.action, {
+      const response = await fetch("https://formsubmit.co/ajax/mubashirahmed421@gmail.com", {
         method: "POST",
         body: formData,
         headers: {
@@ -16,11 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       })
 
-      if (response.ok) {
+      const result = await response.json()
+
+      if (result.success === "true") {
         displayStatus("Message sent successfully!", "success")
         form.reset()
       } else {
-        throw new Error("Network response was not ok")
+        throw new Error("Submission failed")
       }
     } catch (error) {
       displayStatus("An error occurred. Please try again later.", "error")
