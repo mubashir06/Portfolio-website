@@ -140,19 +140,24 @@
 					<section id="contact">
 						<div class="inner">
 							<section>
-								<form id="contactForm">
+								<form id="contactForm" action="https://formsubmit.co/mubashirahmed421@gmail.com" method="POST">
+									<!-- Add these hidden inputs -->
+									<input type="hidden" name="_captcha" value="false">
+									<input type="hidden" name="_next" value="https://mubashir06.github.io/thank-you">
+									<input type="hidden" name="_template" value="table">
+									
 									<div class="fields">
 										<div class="field half">
 											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
+											<input type="text" name="name" id="name" required />
 										</div>
 										<div class="field half">
 											<label for="email">Email</label>
-											<input type="email" name="email" id="email" />
+											<input type="email" name="email" id="email" required />
 										</div>
 										<div class="field">
 											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="6"></textarea>
+											<textarea name="message" id="message" rows="6" required></textarea>
 										</div>
 									</div>
 									<ul class="actions">
