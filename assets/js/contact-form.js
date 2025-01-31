@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Use FormSubmit.co for form submission
-    fetch("https://formsubmit.co/your-email@example.com", {
+    fetch("https://formsubmit.co/mubashirshakeel312@gmail.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
